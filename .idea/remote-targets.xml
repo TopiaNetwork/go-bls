@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="WSL - Ubuntu-20.04" type="wsl" uuid="ce8693d9-267b-476d-8def-48bb0bc5e3d1">
+        <config>
+          <option name="distributionMsId" value="Ubuntu-20.04" />
+          <option name="projectRootOnTarget" value="/mnt/d/GoLand 2021.3.1/jbr/bin&#10;/blsTestProject" />
+        </config>
+      </target>
+    </targets>
+  </component>
+</project>
