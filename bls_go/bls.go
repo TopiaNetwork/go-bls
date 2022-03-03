@@ -1,4 +1,4 @@
-package bls
+package bls_go
 
 /*此文件封装对bls C库的调用*/
 /*

@@ -1,4 +1,4 @@
-package bls
+package bls_go
 
 import (
 	"crypto/md5"

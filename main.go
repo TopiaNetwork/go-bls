@@ -1,11 +1,11 @@
 package main
 
 import (
-	"blsTestProject/bls"
+	"blsProject/bls_go"
 )
 
 func main() {
 
-	bls.Initialization()
+	bls_go.Initialization()
 
 }
