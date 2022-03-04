@@ -10,11 +10,11 @@ package bls_go
 
 /*
 #cgo CFLAGS:-DMCLBN_FP_UNIT_SIZE=6 -DMCLBN_FR_UNIT_SIZE=4 -DBLS_ETH=1
-#cgo CFLAGS: -I/home/sz/bls/bls/mcl/include
-#cgo CFLAGS: -I/home/sz/bls/bls/include
+#cgo CFLAGS: -I/${SRCDIR}/../bls/mcl/include
+#cgo CFLAGS: -I/${SRCDIR}/../bls/include
 
-#cgo LDFLAGS: -L/home/sz/bls/bls/mcl/lib
-#cgo LDFLAGS: -L/home/sz/bls/bls/lib
+#cgo LDFLAGS: -L/${SRCDIR}/../bls/mcl/lib
+#cgo LDFLAGS: -L/${SRCDIR}/../bls/lib
 #cgo LDFLAGS: -lbls384_256 -lmcl -lstdc++
 #include "mcl/bn.h"
 #include "bls/bls.h"
