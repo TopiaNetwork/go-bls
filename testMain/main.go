@@ -1,13 +1,13 @@
 package main
 
 import (
-	"blsProject/bls_go"
 	"fmt"
+	"github.com/TopiaNetwork/go-bls"
 )
 
 func main() {
 
-	bls_go.Initialization()
+	bls.Initialization(bls.MCL_BN254)
 	fmt.Println("main func output ok")
 
 }
