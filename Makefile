@@ -1,14 +1,85 @@
 BINARY_NAME="bls.elf"
-
-default:
-	echo ${BINARY_NAME}
+CTAG_256=bn256
+CTAG_384=bn384
+CTAG_384_256=bn384_256
+CTAG_512=bn512
 	
 lib:
+	cd ./bls && make -C mcl lib/libmcl.a && make BLS_ETH=1 lib/libbls256.a \
+	&& make BLS_ETH=1 lib/libbls384.a && make BLS_ETH=1 lib/libbls384_256.a && make BLS_ETH=1 lib/libbls512.a
+	
+lib256:
+	cd ./bls && make -C mcl lib/libmcl.a && make BLS_ETH=1 lib/libbls256.a
+	
+lib384:
+	cd ./bls && make -C mcl lib/libmcl.a && make BLS_ETH=1 lib/libbls384.a
+	
+lib384_256:
 	cd ./bls && make -C mcl lib/libmcl.a && make BLS_ETH=1 lib/libbls384_256.a
 	
-build: lib
-	go build -o ./bin/$(BINARY_NAME)
-	./bin/$(BINARY_NAME)
+lib512:
+	cd ./bls && make -C mcl lib/libmcl.a && make BLS_ETH=1 lib/libbls512.a
+	
+build256:
+	cd ./testMain && go build -tags=$(CTAG_256) -o ../bin/$(BINARY_NAME)
+build384:
+	cd ./testMain && go build -tags=$(CTAG_384) -o ../bin/$(BINARY_NAME)
+build384_256:
+	cd ./testMain && go build -tags=$(CTAG_384_256) -o ../bin/$(BINARY_NAME)
+build512:
+	cd ./testMain && go build -tags=$(CTAG_512) -o ../bin/$(BINARY_NAME)
+	
+build: build384_256
+	echo "Use build384_256 as default \nIf you need to build with other Lib, try other command such as \"make build384\" "
 
-test: lib
-	go test -v ./bls_go
+test:
+	echo "Test Lib256:"
+	go test -tags=$(CTAG_256) -v
+	echo "Test Lib384:"
+	go test -tags=$(CTAG_384) -v
+	echo "Test Lib384_256:"
+	go test -tags=$(CTAG_384_256) -v
+	echo "Test Lib512:"
+	go test -tags=$(CTAG_512) -v
+
+test256:
+	echo "Test Lib256:"
+	go test -tags=$(CTAG_256) -v
+
+test384:
+	echo "Test Lib384:"
+	go test -tags=$(CTAG_384) -v
+
+test384_256:
+	echo "Test Lib384_256:"
+	go test -tags=$(CTAG_384_256) -v
+
+test512:
+	echo "Test Lib512:"
+	go test -tags=$(CTAG_512) -v
+	
+benchmark:
+	echo "Benchmark Lib256:"
+	go test -tags=$(CTAG_256) -bench=.
+	echo "Benchmark Lib384:"
+	go test -tags=$(CTAG_384) -bench=.
+	echo "Benchmark Lib384_256:"
+	go test -tags=$(CTAG_384_256) -bench=.
+	echo "Benchmark Lib512:"
+	go test -tags=$(CTAG_512) -bench=.
+
+benchmark256:
+	echo "Benchmark Lib256:"
+	go test -tags=$(CTAG_256) -bench=.
+	
+benchmark384:
+	echo "Benchmark Lib384:"
+	go test -tags=$(CTAG_384) -bench=.
+	
+benchmark384_256:
+	echo "Benchmark Lib384_256:"
+	go test -tags=$(CTAG_384_256) -bench=.
+	
+benchmark512:
+	echo "Benchmark Lib512:"
+	go test -tags=$(CTAG_512) -bench=.
