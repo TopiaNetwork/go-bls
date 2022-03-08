@@ -58,20 +58,3 @@ func min(x, y int) int {
 	}
 	return y
 }
-
-func WhatLib() {
-
-	p := C.int(C.MCLBN_FP_UNIT_SIZE)
-	r := C.int(C.MCLBN_FR_UNIT_SIZE)
-	if p == 4 && r == 4 {
-		fmt.Println("Lib: bls256")
-	} else if p == 6 && r == 4 {
-		fmt.Println("Lib: bls384_256")
-	} else if p == 6 && r == 6 {
-		fmt.Println("Lib: bls384")
-	} else if p == 8 && r == 8 {
-		fmt.Println("Lib: bls512")
-	} else {
-		fmt.Println("unknown Lib")
-	}
-}
