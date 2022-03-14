@@ -43,7 +43,7 @@ Initialization(c CurveType)
 Go 1.14 or later is recommended.
 
 1. `import "github.com/TopiaNetwork/go-bls"`in the file where you need to use this module.  
-2. `go mod int [yourProjectModule]` If your project already has project module, skip this step.
+2. `go mod init [yourProjectModule]` If your project already has project module, skip this step.
 3. Execute `go mod tidy` in your project directory.
 4. `cd $GOPATH/pkg/mod/github.com/TopiaNetwork/go-bls`  
 *Note: You need to replace `$GOPATH` with your own configured gopath.*  
