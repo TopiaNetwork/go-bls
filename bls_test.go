@@ -24,7 +24,7 @@ func TestSignAndVerify(t *testing.T) {
 		3: "to be add...",
 	}
 	for k := range msg {
-		sec.SetByCSPRNG()
+		sec = *CreateSecretKey()
 		pub = sec.GetPublicKey()
 		sig = sec.Sign(msg[k])
 		if ok := sig.Verify(pub, msg[k]); !ok {
@@ -49,7 +49,7 @@ func TestAggSigAndVerify(t *testing.T) {
 
 	for k, v := range msg {
 		for i := 0; i < 3; i++ {
-			secVec[i].SetByCSPRNG()
+			secVec[i] = *CreateSecretKey()
 			pubVec[i] = *(secVec[i].GetPublicKey())
 			sigVec[i] = *(secVec[i].Sign(msg[k]))
 		}
@@ -69,7 +69,7 @@ func TestKofN(t *testing.T) {
 	Initialization(MCL_BN254)
 
 	for i := range msk {
-		msk[i].SetByCSPRNG()
+		msk[i] = *CreateSecretKey()
 	}
 
 	var nSk [10]SecretKey //n
@@ -114,7 +114,7 @@ func testSignHashAndVerifyHash(t *testing.T, algo string, msgToHash string) {
 	var pk PublicKey
 	var sig Signature
 
-	sk.SetByCSPRNG()
+	sk = *CreateSecretKey()
 	pk = *sk.GetPublicKey()
 
 	var msgHash hash.Hash
@@ -155,7 +155,7 @@ func testVerifyAggregateHashes(t *testing.T, algo string, n int) {
 	}
 
 	for i := range secVec {
-		secVec[i].SetByCSPRNG()
+		secVec[i] = *CreateSecretKey()
 		pubVec[i] = *secVec[i].GetPublicKey()
 		MsgHashVec[i] = hashSelect([]byte(msg[i]), algo)
 		sigVec[i] = *secVec[i].SignHash(MsgHashVec[i])
@@ -196,7 +196,7 @@ func TestSerializeAndDe(t *testing.T) {
 	var sig *Signature
 	var id ID
 
-	sec.SetByCSPRNG()
+	sec = *CreateSecretKey()
 	pub = sec.GetPublicKey()
 	msg := "test msg"
 	sig = sec.Sign(msg)
@@ -226,7 +226,7 @@ func TestIsZero(t *testing.T) {
 	if sec.IsZero() && pub.IsZero() && sig.IsZero() && id.IsZero() == false {
 		t.Error("function <IsZero> has problem")
 	}
-	sec.SetByCSPRNG()
+	sec = *CreateSecretKey()
 	pub = *sec.GetPublicKey()
 	msg := "test msg"
 	sig = *sec.Sign(msg)
@@ -243,7 +243,7 @@ func TestIsEqual(t *testing.T) {
 	var sig, sig2 Signature
 	var id, id2 ID
 
-	sec.SetByCSPRNG()
+	sec = *CreateSecretKey()
 	sec2 = sec
 	pub = *sec.GetPublicKey()
 	pub2 = *sec2.GetPublicKey()
@@ -268,7 +268,7 @@ func TestSetByMskMpkIDAndRecover(t *testing.T) {
 	var ids [10]ID
 
 	for i := range msk {
-		msk[i].SetByCSPRNG()
+		msk[i] = *CreateSecretKey()
 		mpk[i] = *msk[i].GetPublicKey()
 		ids[i].SetInt(i + 1)
 	}

@@ -20,16 +20,21 @@ func BenchmarkInitialization(b *testing.B) {
 func BenchmarkSetSecKey(b *testing.B) {
 	Initialization(MCL_BN254)
 	var sec SecretKey
+	dontCare(sec)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		sec.SetByCSPRNG()
+		sec = *CreateSecretKey()
 	}
+}
+
+func dontCare(i interface{}) {
+
 }
 
 func BenchmarkGetPubKey(b *testing.B) {
 	Initialization(MCL_BN254)
 	var sec SecretKey
-	sec.SetByCSPRNG()
+	sec = *CreateSecretKey()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		sec.GetPublicKey()
@@ -39,7 +44,7 @@ func BenchmarkGetPubKey(b *testing.B) {
 func BenchmarkSign(b *testing.B) {
 	Initialization(MCL_BN254)
 	var sec SecretKey
-	sec.SetByCSPRNG()
+	sec = *CreateSecretKey()
 	msg := "msg for sign"
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -50,7 +55,7 @@ func BenchmarkSign(b *testing.B) {
 func BenchmarkVerify(b *testing.B) {
 	Initialization(MCL_BN254)
 	var sec SecretKey
-	sec.SetByCSPRNG()
+	sec = *CreateSecretKey()
 	var pub PublicKey = *sec.GetPublicKey()
 	msg := "msg for sign"
 	var sig Signature = *sec.Sign(msg)
@@ -75,7 +80,7 @@ func benchmarkAggSign(b *testing.B, n int) {
 	msg := "msg to test"
 
 	for i := 0; i < n; i++ {
-		secVec[i].SetByCSPRNG()
+		secVec[i] = *CreateSecretKey()
 		pubVec[i] = *(secVec[i].GetPublicKey())
 		sigVec[i] = *(secVec[i].Sign(msg))
 	}
@@ -102,7 +107,7 @@ func benchmarkAggVerify(b *testing.B, n int) {
 	msg := "msg to test"
 
 	for i := 0; i < n; i++ {
-		secVec[i].SetByCSPRNG()
+		secVec[i] = *CreateSecretKey()
 		pubVec[i] = *(secVec[i].GetPublicKey())
 		sigVec[i] = *(secVec[i].Sign(msg))
 	}
@@ -125,7 +130,7 @@ func BenchmarkSignHash(b *testing.B) {
 	Initialization(MCL_BN254)
 
 	var sk SecretKey
-	sk.SetByCSPRNG()
+	sk = *CreateSecretKey()
 
 	var msgHash hash.Hash
 	switch algo {
@@ -162,7 +167,7 @@ func BenchmarkVerifyHash(b *testing.B) {
 	var pk PublicKey
 	var sig Signature
 
-	sk.SetByCSPRNG()
+	sk = *CreateSecretKey()
 	pk = *sk.GetPublicKey()
 
 	var msgHash hash.Hash
@@ -214,7 +219,7 @@ func benchmarkVerifyAggHashes(b *testing.B, n int, algo string) {
 	}
 
 	for i := range secVec {
-		secVec[i].SetByCSPRNG()
+		secVec[i] = *CreateSecretKey()
 		pubVec[i] = *secVec[i].GetPublicKey()
 		MsgHashVec[i] = hashSelect([]byte(msg[i]), algo)
 		sigVec[i] = *secVec[i].SignHash(MsgHashVec[i])
@@ -243,7 +248,7 @@ func benchmarkKofNSetSec(b *testing.B, k int, n int) {
 	Initialization(MCL_BN254)
 
 	for i := range msk {
-		msk[i].SetByCSPRNG()
+		msk[i] = *CreateSecretKey()
 	}
 
 	var nSk = make([]SecretKey, n)
@@ -268,7 +273,7 @@ func benchmarkKofNVerify(b *testing.B, k int, n int) {
 	Initialization(MCL_BN254)
 
 	for i := range msk {
-		msk[i].SetByCSPRNG()
+		msk[i] = *CreateSecretKey()
 	}
 
 	var nSk = make([]SecretKey, n)

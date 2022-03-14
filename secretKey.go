@@ -40,7 +40,8 @@ func (s *SecretKey) IsZero() bool {
 	return C.blsSecretKeyIsZero(&s.v) == 1
 }
 
-func (s *SecretKey) SetByCSPRNG() {
+func CreateSecretKey() *SecretKey {
+	var s SecretKey
 	i := C.blsSecretKeySetByCSPRNG(&s.v)
 	if i != 0 {
 		panic("err blsSecretKeySetByCSPRNG")
@@ -48,6 +49,7 @@ func (s *SecretKey) SetByCSPRNG() {
 	if s.IsZero() {
 		panic(fmt.Sprintf("err blsSecretKeySetByCSPRNG : %v", i))
 	}
+	return &s
 }
 
 func (s *SecretKey) GetPublicKey() (p *PublicKey) {

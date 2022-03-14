@@ -9,10 +9,25 @@ func main() {
 
 	bls.Initialization(bls.MCL_BN254)
 	var sec bls.SecretKey
-	sec.SetByCSPRNG()
+	sec = *bls.CreateSecretKey()
 	fmt.Printf("sec:%s\n", sec.SerializeToHexStr())
 	pub := sec.GetPublicKey()
 	fmt.Printf("pub:%s\n", pub.SerializeToHexStr())
+
+	var sec2 bls.SecretKey
+	//sec = *bls.CreateSecretKey()
+	fmt.Printf("sec2:%s\n", sec2.SerializeToHexStr())
+	pub2 := sec2.GetPublicKey()
+	fmt.Printf("pub2:%s\n", pub2.SerializeToHexStr())
+	fmt.Println("sec2 is zero: ", sec2.IsZero())
+	fmt.Println("sec2 is zero: ", pub2.IsZero())
+	msg := "msg"
+	sig2 := sec2.Sign(msg)
+	fmt.Printf("sig2:%s\n", sig2.SerializeToHexStr())
+	fmt.Println("sig2 is zero: ", sig2.IsZero())
+	func(i interface{}) {
+
+	}(pub2)
 
 	msgTbl := []string{"abc", "def", "123"}
 	n := len(msgTbl)
@@ -38,7 +53,7 @@ func main() {
 
 	for k, v := range msgTbl {
 		for i := 0; i < aggN; i++ {
-			secVecForAgg[i].SetByCSPRNG()
+			secVecForAgg[i] = *bls.CreateSecretKey()
 			pubVecForAgg[i] = *(secVecForAgg[i].GetPublicKey())
 			sigVecForAgg[i] = *(secVecForAgg[i].Sign(msgTbl[k]))
 		}

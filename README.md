@@ -8,8 +8,8 @@ The core APIs are as follows:
 //Init with the curve you need to use.
 Initialization(c CurveType)
 
-//Set secret key
-(s *SecretKey) SetByCSPRNG()
+//Create Secret Key
+CreateSecretKey() *SecretKey
 
 //Get public key
 (s *SecretKey) GetPublicKey() (p *PublicKey)
