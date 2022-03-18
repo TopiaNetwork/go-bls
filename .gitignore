@@ -1,5 +1,7 @@
 .idea
 bin/*.exe
 bin/*.elf
+bin/*.dll
 LibrariesTestData/~$*
+*.dll
 *.pdb
