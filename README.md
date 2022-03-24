@@ -40,7 +40,8 @@ CreateSecretKey() *SecretKey
 ```
 ## How to use
 
-Go 1.14 or later is recommended.
+Go 1.14 or later is recommended.  
+If you use macOS, macOS 11.0 or later is recommended.
 
 1. `import "github.com/TopiaNetwork/go-bls"`in the file where you need to use this module.  
 2. `go mod init [yourProjectModule]` If your project already has project module, skip this step.
@@ -49,7 +50,7 @@ Go 1.14 or later is recommended.
 *Note: You need to replace `$GOPATH` with your own configured gopath.*  
 `sudo git clone --recursive https://github.com/herumi/bls`  
 If clone failed, you can `rm -rf bls` and clone again.
-5. **For Linux:**  
+5. **For Linux & macOS:**  
 `make lib` will help you prepare all the bls libraries(bls256, bls384, bls384_256) you need.  
 If you have identified the bls library you need to use, such as bls384, you can: `make lib384`.
 Similarly, you can also: `make lib256` or `make lib384_256`.These operations will not interfere with each other, you can use them in any order.  
@@ -58,9 +59,9 @@ Similarly, you can also: `make lib256` or `make lib384_256`.These operations wil
 `mkdll` will help you prepare all the bls libraries(bls256.dll, bls384.dll, bls384_256.dll) for Windows and they are under the path of `.\windowsdll`  
 *Note: It is recommended to use `x64 Native Tools Command Prompt for VS` to execute`mkdll`.*
 6. Use these APIs according to your needs in your project.  
-7. **For Linux:**  
+7. **For Linux & macOS:**  
 If you need to run your project or build ELF for your project with bls384_256 in this module, you should add compile parameter: **-tags=bn384_256**  
-for example:`go run -tags=bn384_256 xxx/xxx.go` `go build -tags=bn384_256 -o xxx/xxx.elf`.  
+for example:`go run -tags=bn384_256 xxx/xxx.go` or `go build -tags=bn384_256 -o xxx/xxx.elf`.  
 If you use other library such as bls256, just switch the compile parameter to **-tags=bn256**. The same goes for other libraries.  
 **For Windows:**  
 The operation is basically the same as Linux, but you should notice that the .dll file should under the same path of your `go run ...` or the path of the built .exe file. So don't forget to copy the .dll file from `.\windowsdll` to the corresponding path.
@@ -70,7 +71,7 @@ After building libraries you need, you can do some functional testing and perfor
 
 Make sure you are under the path of this module. If you are not, `cd $GOPATH/pkg/mod/github.com/TopiaNetwork/go-bls`  
 
-**For Linux:**  
+**For Linux & macOS:**  
 If you have built all libraries(bls256, bls384, bls384_256), you can:  
 `make test`  
 It will help you test functions for all libraries.  
@@ -95,7 +96,7 @@ It will help you test performances for all libraries.
 
 Make sure you are under the path of this module. If you are not, `cd $GOPATH/pkg/mod/github.com/TopiaNetwork/go-bls`  
 
-**For Linux:**  
+**For Linux & macOS:**  
 After building libraries you need, you can build an ELF file for `./testMain/main.go` using:  
 `make build256` or `make build384` or `make build384_256` (It depends on which library you need to use).  
 The output is `./bin/bls.elf`.  
