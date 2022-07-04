@@ -91,3 +91,7 @@ func (p *PublicKey) IsValidOrder() bool {
 func (p *PublicKey) Add(rhs *PublicKey) {
 	C.blsPublicKeyAdd(&p.v, &rhs.v)
 }
+
+func (p *PublicKey) Mul(sec *SecretKey) {
+	C.blsPublicKeyMul(&p.v, &sec.v)
+}
