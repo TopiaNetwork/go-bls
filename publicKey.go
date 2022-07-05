@@ -92,6 +92,7 @@ func (p *PublicKey) Add(rhs *PublicKey) {
 	C.blsPublicKeyAdd(&p.v, &rhs.v)
 }
 
+// Mul for asymmetric cryptography
 func (p *PublicKey) Mul(sec *SecretKey) {
 	C.blsPublicKeyMul(&p.v, &sec.v)
 }
